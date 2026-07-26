@@ -88,6 +88,2400 @@
 
         .joystick-area {
             position: absolute;
+            bottom: 30px;
+            left: 20px;
+            width: 130px;
+            height: 130px;
+            z-index: 10;
+            touch-action: none;
+        }
+        .joystick-base {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: rgba(255, 200, 240, 0.08);
+            border: 2px solid rgba(255, 200, 240, 0.12);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+        .joystick-thumb {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 150, 220, 0.3), rgba(180, 60, 150, 0.2));
+            border: 2px solid rgba(255, 150, 220, 0.2);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+        .joystick-thumb .arrow {
+            position: absolute;
+            font-size: 12px;
+            color: rgba(255, 200, 240, 0.2);
+            pointer-events: none;
+        }
+        .joystick-thumb .arrow-up { top: 2px; left: 50%; transform: translateX(-50%); }
+        .joystick-thumb .arrow-down { bottom: 2px; left: 50%; transform: translateX(-50%); }
+        .joystick-thumb .arrow-left { left: 2px; top: 50%; transform: translateY(-50%); }
+        .joystick-thumb .arrow-right { right: 2px; top: 50%; transform: translateY(-50%); }
+
+        .action-button {
+            position: absolute;
+            bottom: 45px;
+            right: 25px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 200, 100, 0.15), rgba(255, 150, 50, 0.05));
+            border: 2px solid rgba(255, 200, 100, 0.2);
+            color: #ffcc88;
+            font-size: 28px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.1s;
+        }
+        .action-button:active { transform: scale(0.9); }
+        .action-button .label { font-size: 7px; color: #ffcc88; margin-top: 1px; letter-spacing: 1px; }
+
+        .inventory-bar {
+            background: rgba(40, 10, 40, 0.95);
+            border-top: 1px solid #6a2a6a;
+            padding: 6px 10px;
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            flex-shrink: 0;
+            min-height: 48px;
+            flex-wrap: wrap;
+            backdrop-filter: blur(10px);
+            justify-content: center;
+        }
+        .inventory-bar .label { font-size: 9px; color: #aa6aaa; text-transform: uppercase; letter-spacing: 1px; margin-right: 4px; }
+        .inv-slot {
+            width: 38px;
+            height: 38px;
+            background: rgba(60, 20, 60, 0.5);
+            border: 1px solid rgba(255, 150, 220, 0.08);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            position: relative;
+            font-weight: bold;
+            color: #885588;
+        }
+        .inv-slot.has-item { border-color: rgba(255, 200, 100, 0.4); background: rgba(80, 40, 60, 0.4); color: #ffd8f0; }
+        .inv-slot .slot-number { position: absolute; bottom: 1px; right: 4px; font-size: 7px; color: #885588; }
+
+        .dialog-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(30, 10, 30, 0.95);
+            border: 1px solid rgba(255, 150, 220, 0.15);
+            border-radius: 20px;
+            padding: 16px 22px;
+            max-width: 85%;
+            min-width: 180px;
+            font-size: 14px;
+            color: #ffe8f0;
+            backdrop-filter: blur(20px);
+            z-index: 20;
+            text-align: center;
+            display: none;
+            animation: dialogIn 0.3s ease-out;
+            box-shadow: 0 8px 60px rgba(0, 0, 0, 0.9);
+        }
+        .dialog-box.show { display: block; }
+        @keyframes dialogIn { from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+        .dialog-box .title { font-size: 11px; color: #ffb0e0; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .dialog-box .text { margin-top: 6px; line-height: 1.5; }
+        .dialog-box .sub { font-size: 11px; color: #aa6aaa; margin-top: 4px; }
+
+        .hint-badge {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(30, 10, 30, 0.8);
+            border: 1px solid rgba(255, 150, 220, 0.1);
+            border-radius: 20px;
+            padding: 4px 16px;
+            font-size: 11px;
+            color: #ddaadd;
+            z-index: 5;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .hint-badge .count { color: #ffcc88; font-weight: bold; }
+        .hint-badge .count.full { color: #88ffbb; }
+
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(30, 10, 30, 0.8);
+            border: 1px solid rgba(255, 150, 220, 0.1);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 10px;
+            color: #ffb0e0;
+            z-index: 5;
+            backdrop-filter: blur(5px);
+        }
+
+        .map-legend {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(30, 10, 30, 0.7);
+            border: 1px solid rgba(255, 150, 220, 0.05);
+            border-radius: 10px;
+            padding: 4px 12px;
+            font-size: 9px;
+            color: #885588;
+            z-index: 5;
+            backdrop-filter: blur(5px);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            white-space: nowrap;
+        }
+        .map-legend span { display: flex; align-items: center; gap: 3px; }
+
+        .level-complete {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(30, 10, 30, 0.95);
+            border: 2px solid rgba(255, 200, 100, 0.3);
+            border-radius: 20px;
+            padding: 30px 40px;
+            text-align: center;
+            z-index: 30;
+            display: none;
+            backdrop-filter: blur(20px);
+            animation: dialogIn 0.5s ease-out;
+        }
+        .level-complete.show { display: block; }
+        .level-complete h2 { color: #ffcc88; font-size: 24px; margin-bottom: 8px; }
+        .level-complete p { color: #ddaadd; font-size: 14px; margin-bottom: 12px; }
+        .level-complete button {
+            padding: 10px 32px;
+            background: linear-gradient(135deg, #7a3a5a, #5a2a4a);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .level-complete button:active { transform: scale(0.95); }
+
+        .progress-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 5;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #aa4aaa, #ff88cc);
+            transition: width 0.5s ease;
+            width: 0%;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .win-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(20, 5, 20, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 50;
+            backdrop-filter: blur(30px);
+            padding: 30px;
+            text-align: center;
+            animation: fadeIn 0.8s ease-out;
+        }
+        .win-overlay.show { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .win-overlay .emoji-big { font-size: 72px; margin-bottom: 10px; }
+        .win-overlay h1 { font-size: 32px; color: #ffcc88; text-shadow: 0 0 60px rgba(255, 200, 80, 0.2); }
+        .win-overlay p { color: #ddaadd; margin: 6px 0; font-size: 14px; }
+        .win-overlay .time-result { font-size: 20px; color: #ffb0e0; margin: 8px 0; }
+        .win-overlay button {
+            margin-top: 16px;
+            padding: 14px 40px;
+            background: linear-gradient(135deg, #5a2a5a, #3a1a3a);
+            border: 1px solid rgba(255, 150, 220, 0.2);
+            border-radius: 12px;
+            color: #ffe8f0;
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .win-overlay button:active { transform: scale(0.95); }
+
+        .game-over-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(20, 5, 20, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 45;
+            backdrop-filter: blur(30px);
+            padding: 30px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .game-over-overlay.show { display: flex; }
+        .game-over-overlay .emoji-big { font-size: 72px; margin-bottom: 10px; }
+        .game-over-overlay h1 { font-size: 32px; color: #ff6b8a; text-shadow: 0 0 60px rgba(255, 50, 80, 0.3); }
+        .game-over-overlay p { color: #ddaadd; margin: 6px 0; font-size: 14px; }
+        .game-over-overlay button {
+            margin-top: 16px;
+            padding: 14px 40px;
+            background: linear-gradient(135deg, #5a2a2a, #3a1a1a);
+            border: 1px solid rgba(255, 100, 100, 0.2);
+            border-radius: 12px;
+            color: #ffe8f0;
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .game-over-overlay button:active { transform: scale(0.95); }
+
+        .pickup-particle {
+            position: absolute;
+            pointer-events: none;
+            z-index: 15;
+            font-size: 24px;
+            animation: pickupFly 0.6s ease-out forwards;
+        }
+        @keyframes pickupFly { 0% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.3); } }
+
+        .celebration-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+            font-size: 28px;
+            animation: celebrateFall 3s ease-in forwards;
+        }
+        @keyframes celebrateFall { 0% { opacity: 1; transform: translateY(-20px) rotate(0deg) scale(0.3); } 100% { opacity: 0; transform: translateY(110vh) rotate(720deg) scale(1.5); } }
+
+        .final-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #0a0a0a;
+            z-index: 60;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .final-animation.show { display: flex; }
+        .final-animation .scene { position: relative; width: 100%; height: 100%; max-height: 600px; }
+        .final-animation canvas { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
+        .final-animation .skip-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            color: #aaa;
+            font-size: 12px;
+            cursor: pointer;
+            z-index: 70;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* ===== ПОЗДРАВИТЕЛЬНАЯ ОТКРЫТКА (исправленная для мобильных) ===== */
+        .congrats-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 5, 10, 0.95);
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 10px;
+            backdrop-filter: blur(25px);
+            animation: fadeIn 0.8s ease-out;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
+        }
+        .congrats-overlay.show { display: flex; }
+
+        .congrats-envelope {
+            width: 100%;
+            max-width: 480px;
+            background: linear-gradient(160deg, #2a1a2a, #150a15);
+            border: 3px solid #6a3a6a;
+            border-radius: 28px;
+            padding: 20px 16px 30px;
+            box-shadow: 0 0 100px rgba(255, 100, 200, 0.12), inset 0 0 80px rgba(255, 100, 200, 0.04);
+            position: relative;
+            margin: 10px auto;
+            flex-shrink: 0;
+            touch-action: pan-y;
+            margin-bottom: 30px;
+        }
+
+        .congrats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #3a2a3a;
+            padding-bottom: 12px;
+            margin-bottom: 14px;
+        }
+        .congrats-header h2 { color: #ffb0e0; font-size: 18px; text-shadow: 0 0 30px rgba(255, 100, 200, 0.2); letter-spacing: 2px; }
+        .congrats-header .stamp { font-size: 28px; opacity: 0.7; }
+
+        .congrats-body { display: flex; flex-direction: column; gap: 12px; }
+
+        .congrats-text {
+            text-align: center;
+            padding: 14px;
+            background: rgba(60, 30, 60, 0.25);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 150, 220, 0.08);
+        }
+        .congrats-text .greeting { font-size: 22px; color: #ffcc88; font-weight: bold; text-shadow: 0 0 40px rgba(255, 200, 100, 0.15); margin-bottom: 6px; }
+        .congrats-text .message { font-size: 14px; color: #ddaadd; line-height: 1.7; max-width: 400px; margin: 0 auto; }
+        .congrats-text .message .highlight { color: #ffb0e0; font-weight: bold; }
+        .congrats-text .signature { font-size: 16px; color: #ffb0e0; margin-top: 8px; font-style: italic; }
+
+        .congrats-videos {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .congrats-videos .video-wrapper {
+            width: 30%;
+            min-width: 70px;
+            border-radius: 12px;
+            border: 2px solid #3a2a3a;
+            background: #0a0a0a;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            aspect-ratio: 9/16;
+            touch-action: manipulation;
+        }
+        .congrats-videos .video-wrapper:active { transform: scale(0.95); }
+        .congrats-videos .video-wrapper.expanded {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw;
+            max-width: 350px;
+            height: auto;
+            aspect-ratio: 9/16;
+            z-index: 1000;
+            border-color: #ff88cc;
+            box-shadow: 0 0 80px rgba(255, 100, 200, 0.3);
+        }
+        .congrats-videos video { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+        .congrats-videos .video-wrapper .play-hint {
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.6);
+            color: #aaa;
+            font-size: 8px;
+            padding: 2px 10px;
+            border-radius: 10px;
+            pointer-events: none;
+            font-family: 'Courier New', monospace;
+        }
+
+        .music-player {
+            background: rgba(20, 10, 20, 0.85);
+            border-radius: 14px;
+            padding: 10px 12px;
+            border: 1px solid rgba(255, 150, 220, 0.08);
+            backdrop-filter: blur(10px);
+        }
+        .music-player .controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .music-player .controls button {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            color: #ddaadd;
+            padding: 6px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            transition: all 0.2s;
+            min-width: 34px;
+            touch-action: manipulation;
+        }
+        .music-player .controls button:active { transform: scale(0.9); background: rgba(255,255,255,0.15); }
+        .music-player .controls .time-display { color: #885588; font-size: 10px; min-width: 70px; text-align: center; font-family: 'Courier New', monospace; }
+        .music-player .progress-container {
+            width: 100%;
+            height: 4px;
+            background: #2a1a2a;
+            border-radius: 2px;
+            margin: 6px 0 2px;
+            position: relative;
+            cursor: pointer;
+            touch-action: none;
+        }
+        .music-player .progress-container .progress-fill-music {
+            height: 100%;
+            background: linear-gradient(90deg, #aa4aaa, #ff88cc);
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.1s;
+            pointer-events: none;
+        }
+        .music-player .progress-container .progress-handle {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 14px;
+            height: 14px;
+            background: #ff88cc;
+            border-radius: 50%;
+            border: 2px solid #2a1a2a;
+            left: 0%;
+            pointer-events: none;
+        }
+        .music-player .volume-control { display: flex; align-items: center; gap: 4px; }
+        .music-player .volume-control input[type="range"] {
+            width: 50px;
+            height: 3px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #3a2a3a;
+            border-radius: 2px;
+            outline: none;
+        }
+        .music-player .volume-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff88cc;
+            cursor: pointer;
+            border: 1px solid #2a1a1a;
+        }
+        .music-player .track-name { color: #885588; font-size: 9px; text-align: center; margin-top: 2px; font-family: 'Courier New', monospace; }
+
+        .congrats-footer {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 4px;
+            flex-wrap: wrap;
+        }
+        .congrats-footer button {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #5a2a5a, #3a1a3a);
+            border: 1px solid rgba(255, 150, 220, 0.2);
+            border-radius: 12px;
+            color: #ffe8f0;
+            font-size: 13px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+        .congrats-footer button:active { transform: scale(0.95); }
+
+        .video-overlay-close {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 999;
+            display: none;
+            background: rgba(0,0,0,0.5);
+        }
+        .video-overlay-close.active { display: block; }
+
+        @media (max-width: 400px) {
+            .joystick-area { width: 110px; height: 110px; bottom: 25px; left: 15px; }
+            .joystick-base { width: 110px; height: 110px; }
+            .joystick-thumb { width: 44px; height: 44px; }
+            .action-button { width: 60px; height: 60px; bottom: 38px; right: 18px; font-size: 24px; }
+            .header .title { font-size: 10px; }
+            .header .stats { font-size: 10px; gap: 6px; }
+            .inv-slot { width: 32px; height: 32px; font-size: 14px; }
+            .dialog-box { font-size: 13px; padding: 14px 18px; max-width: 90%; }
+            .hint-badge { font-size: 10px; padding: 3px 12px; }
+            .level-badge { font-size: 9px; padding: 3px 10px; }
+            .level-complete { padding: 20px 24px; }
+            .level-complete h2 { font-size: 20px; }
+            .map-legend { bottom: 90px; }
+        }
+
+        @media (max-height: 650px) {
+            .joystick-area { width: 100px; height: 100px; bottom: 20px; left: 12px; }
+            .joystick-base { width: 100px; height: 100px; }
+            .joystick-thumb { width: 40px; height: 40px; }
+            .action-button { width: 55px; height: 55px; bottom: 32px; right: 15px; font-size: 22px; }
+            .inventory-bar { min-height: 40px; padding: 4px 8px; }
+            .inv-slot { width: 30px; height: 30px; font-size: 12px; }
+            .dialog-box { padding: 12px 16px; font-size: 12px; }
+            .hint-badge { font-size: 9px; padding: 2px 10px; top: 6px; }
+            .level-badge { font-size: 8px; padding: 2px 8px; top: 6px; }
+            .map-legend { bottom: 80px; font-size: 8px; padding: 3px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-wrapper" id="gameWrapper">
+    <!-- ===== ХЕДЕР ===== -->
+    <div class="header">
+        <span class="title">🎂 ПОБЕГ С ДНЯ РОЖДЕНИЯ</span>
+        <div class="stats">
+            <span>❤️ <span class="health-bar"><span class="fill" id="healthFill" style="width:100%"></span></span></span>
+            <span>⏱️ <span id="timerDisplay">5:00</span></span>
+            <span>🎁 <span id="itemCount">0/3</span></span>
+        </div>
+    </div>
+
+    <!-- ===== ИГРОВАЯ ОБЛАСТЬ ===== -->
+    <div class="game-area" id="gameArea">
+        <canvas id="gameCanvas"></canvas>
+
+        <div class="progress-container"><div class="progress-fill" id="progressFill"></div></div>
+
+        <div class="hint-badge" id="hintBadge">
+            🎁 Подарков: <span class="count" id="hintCount">0</span>/3
+            <span id="statusIcon">🎈</span>
+        </div>
+
+        <div class="level-badge" id="levelBadge">Уровень 1</div>
+
+        <div class="dialog-box" id="dialogBox">
+            <div class="title" id="dialogTitle">🎉 ИМЕНИННИК</div>
+            <div class="text" id="dialogText">Собери 3 подарка!</div>
+            <div class="sub" id="dialogSub"></div>
+        </div>
+
+        <div class="level-complete" id="levelComplete">
+            <h2>🎂 УРОВЕНЬ ПРОЙДЕН!</h2>
+            <p id="levelCompleteText">Ты собрал все подарки!</p>
+            <button id="nextLevelBtn">➡️ Следующий уровень</button>
+        </div>
+
+        <div class="map-legend" id="mapLegend">
+            <span>🟣 Ты</span>
+            <span>🎁 Подарки</span>
+            <span>🚪 Выход</span>
+            <span>⚠️ Ловушки</span>
+            <span id="bossLegend" style="display:none">🐍 Босс</span>
+        </div>
+
+        <div class="joystick-area" id="joystickArea">
+            <div class="joystick-base" id="joystickBase">
+                <div class="joystick-thumb" id="joystickThumb">
+                    <span class="arrow arrow-up">▲</span>
+                    <span class="arrow arrow-down">▼</span>
+                    <span class="arrow arrow-left">◀</span>
+                    <span class="arrow arrow-right">▶</span>
+                </div>
+            </div>
+        </div>
+
+        <button class="action-button" id="actionBtn">
+            🚪
+            <span class="label">ВЫХОД</span>
+        </button>
+
+        <div class="game-over-overlay" id="gameOverOverlay">
+            <div class="emoji-big">💀</div>
+            <h1>ТЫ ПОГИБ!</h1>
+            <p>Попробуй ещё раз!</p>
+            <button id="restartBtn">🔄 Начать заново</button>
+        </div>
+
+        <div class="win-overlay" id="winOverlay">
+            <div class="emoji-big">🎉</div>
+            <h1>🎂 С ДНЁМ РОЖДЕНИЯ!</h1>
+            <p>Ты прошёл все 3 уровня!</p>
+            <div class="time-result" id="finalTime">0:00</div>
+            <button onclick="location.reload()">🎈 Играть снова</button>
+        </div>
+
+        <!-- Final Animation -->
+        <div class="final-animation" id="finalAnimation">
+            <div class="scene">
+                <canvas id="finalCanvas"></canvas>
+                <button class="skip-btn" id="skipFinalBtn">Пропустить ⏭️</button>
+            </div>
+        </div>
+
+        <!-- Фон для закрытия видео -->
+        <div class="video-overlay-close" id="videoOverlayClose"></div>
+
+        <!-- ===== ПОЗДРАВИТЕЛЬНАЯ ОТКРЫТКА ===== -->
+        <div class="congrats-overlay" id="congratsOverlay">
+            <div class="congrats-envelope">
+                <div class="congrats-header">
+                    <h2>💌 ПОЗДРАВЛЕНИЕ</h2>
+                    <span class="stamp">🎂</span>
+                </div>
+                <div class="congrats-body">
+                    <div class="congrats-text">
+                        <div class="greeting">С ДНЁМ РОЖДЕНИЯ, СОНЯ! 🎉</div>
+                        <div class="message">
+                            Моя любимая, ты — самое прекрасное, что есть в моей жизни! 💖<br>
+                            Каждый день с тобой — это праздник, а сегодня — твой особенный день.<br><br>
+                            Ты — <span class="highlight">самая красивая</span>, <span class="highlight">самая нежная</span> и <span class="highlight">самая родная</span> для меня.<br>
+                            Я хочу, чтобы все твои мечты сбывались, а улыбка никогда не сходила с лица!<br><br>
+                            Спасибо, что ты есть! Ты — моё вдохновение и моё счастье! 🌟<br>
+                            Я люблю тебя больше всех на свете! ❤️
+                        </div>
+                        <div class="signature">❤️ Твой Ярослав</div>
+                    </div>
+
+                    <!-- Видео -->
+                    <div class="congrats-videos">
+                        <div class="video-wrapper" data-video="video1">
+                            <video id="video1" muted loop playsinline></video>
+                            <span class="play-hint">👆 Нажми</span>
+                        </div>
+                        <div class="video-wrapper" data-video="video2">
+                            <video id="video2" muted loop playsinline></video>
+                            <span class="play-hint">👆 Нажми</span>
+                        </div>
+                        <div class="video-wrapper" data-video="video3">
+                            <video id="video3" muted loop playsinline></video>
+                            <span class="play-hint">👆 Нажми</span>
+                        </div>
+                    </div>
+
+                    <!-- Музыкальный плеер -->
+                    <div class="music-player">
+                        <div class="controls">
+                            <button id="playBtn">▶</button>
+                            <button id="prevBtn">⏪</button>
+                            <button id="nextBtn">⏩</button>
+                            <span class="time-display" id="timeDisplay">0:00 / 0:00</span>
+                            <div class="volume-control">
+                                <span>🔊</span>
+                                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.8">
+                            </div>
+                        </div>
+                        <div class="progress-container" id="progressContainer">
+                            <div class="progress-fill-music" id="progressFillMusic"></div>
+                            <div class="progress-handle" id="progressHandle"></div>
+                        </div>
+                        <div class="track-name" id="trackName">🎵 1.mp3</div>
+                    </div>
+
+                    <div class="congrats-footer">
+                        <button id="closeCongratsBtn">🎈 Закрыть</button>
+                        <button id="restartFromCongratsBtn">🔄 Играть снова</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <audio id="bgMusic" preload="metadata"></audio>
+    </div>
+
+    <!-- ===== ИНВЕНТАРЬ ===== -->
+    <div class="inventory-bar" id="inventoryBar">
+        <span class="label">🎒</span>
+        <div class="inv-slot" id="slot1"><span class="slot-number">1</span></div>
+        <div class="inv-slot" id="slot2"><span class="slot-number">2</span></div>
+        <div class="inv-slot" id="slot3"><span class="slot-number">3</span></div>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    // ===== МЕДИАФАЙЛЫ (укажите свои пути) =====
+    // ============================================================
+    const MEDIA_PATHS = {
+        music: '1.mp3',
+        video1: '1.mp4',
+        video2: '2.mp4',
+        video3: '3.mp4'
+    };
+
+    // ============================================================
+    // ===== ОСНОВНАЯ ИГРА (полная версия) =====
+    // ============================================================
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+
+    function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        W = canvas.width = rect.width;
+        H = canvas.height = rect.height;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const GRID_SIZE = 10;
+
+    function generateOpenMap(size) {
+        const map = [];
+        for (let row = 0; row < size; row++) {
+            map.push(new Array(size).fill(1));
+        }
+        map[size-1][size-1] = 3;
+        return map;
+    }
+
+    function findFreeCells(map, count, usedCells = []) {
+        const free = [];
+        const used = new Set(usedCells.map(c => `${c.x},${c.y}`));
+        for (let row = 0; row < map.length; row++) {
+            for (let col = 0; col < map[0].length; col++) {
+                if (map[row][col] !== 0 && !used.has(`${col},${row}`)) {
+                    free.push({ x: col, y: row });
+                }
+            }
+        }
+        for (let i = free.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [free[i], free[j]] = [free[j], free[i]];
+        }
+        return free.slice(0, count);
+    }
+
+    function createLevel(levelNum) {
+        const map = generateOpenMap(GRID_SIZE);
+        const usedCells = [{ x: 0, y: 0 }];
+        const positions = findFreeCells(map, 3, usedCells);
+
+        const items = [
+            { id: `gift${levelNum}_1`, name: 'Подарок', icon: '🎁', maxEscapes: levelNum === 2 ? 3 : 1 },
+            { id: `gift${levelNum}_2`, name: 'Подарок', icon: '🎀', maxEscapes: levelNum === 2 ? 2 : 1 },
+            { id: `gift${levelNum}_3`, name: 'Подарок', icon: '🧁', maxEscapes: levelNum === 2 ? 1 : 1 }
+        ];
+
+        const objects = items.map((item, i) => ({
+            ...item,
+            x: positions[i]?.x ?? 1 + i,
+            y: positions[i]?.y ?? 1 + i,
+            escapeTimer: 0,
+            escapeCooldown: 0,
+            escapesLeft: item.maxEscapes
+        }));
+
+        const difficulty = {
+            1: { maxTraps: 6, spawnInterval: 180, trapLife: 300, trapDamage: 15, pickupRadius: 0.8, trapsPerSpawn: 1, escapeDistance: 0, escapeCooldown: 9999, hasBoss: false },
+            2: { maxTraps: 10, spawnInterval: 150, trapLife: 400, trapDamage: 20, pickupRadius: 0.9, trapsPerSpawn: 3, escapeDistance: 5, escapeCooldown: 150, hasBoss: false },
+            3: { maxTraps: 8, spawnInterval: 200, trapLife: 300, trapDamage: 15, pickupRadius: 0.8, trapsPerSpawn: 2, escapeDistance: 4, escapeCooldown: 120, hasBoss: true }
+        };
+
+        const diff = difficulty[levelNum] || difficulty[1];
+
+        return {
+            name: `🎈 Уровень ${levelNum}`,
+            map: map,
+            objects: objects,
+            playerStart: { x: 0, y: 0 },
+            exit: { x: GRID_SIZE - 1, y: GRID_SIZE - 1 },
+            time: 300 - (levelNum - 1) * 30,
+            bgColor: levelNum === 3 ? '#0a0a15' : '#1a0a1a',
+            maxTraps: diff.maxTraps,
+            spawnInterval: diff.spawnInterval,
+            trapLife: diff.trapLife,
+            trapDamage: diff.trapDamage,
+            pickupRadius: diff.pickupRadius,
+            trapsPerSpawn: diff.trapsPerSpawn,
+            escapeDistance: diff.escapeDistance,
+            escapeCooldown: diff.escapeCooldown,
+            hasBoss: diff.hasBoss
+        };
+    }
+
+    const LEVELS = [createLevel(1), createLevel(2), createLevel(3)];
+
+    let currentLevel = 0;
+    let MAP = [];
+    let objects = [];
+    let traps = [];
+    let playerPos = { x: 0, y: 0 };
+    let exitPos = { x: GRID_SIZE - 1, y: GRID_SIZE - 1 };
+    let maxTraps = 6;
+    let spawnInterval = 180;
+    let trapLife = 300;
+    let trapDamage = 15;
+    let pickupRadius = 0.8;
+    let trapsPerSpawn = 1;
+    let escapeDistance = 0;
+    let escapeCooldown = 9999;
+    let hasBoss = false;
+    let boss = null;
+
+    const player = {
+        x: 0, y: 0,
+        displayX: 0, displayY: 0,
+        dir: 0,
+        health: 100,
+        maxHealth: 100,
+        inventory: [],
+        maxItems: 3,
+        trapCooldown: 0,
+        speed: 8
+    };
+
+    let timeLeft = 300;
+    let timerInterval = null;
+    let gameOver = false;
+    let gameWin = false;
+    let levelComplete = false;
+    let frameCount = 0;
+    let trapSpawnTimer = 0;
+    let isMoving = false;
+    let moveTargetX = 0, moveTargetY = 0;
+    let moveProgress = 0;
+
+    const joystickBase = document.getElementById('joystickBase');
+    const joystickThumb = document.getElementById('joystickThumb');
+    let joystickActive = false;
+    let joystickTouchId = null;
+    let joystickDir = { x: 0, y: 0 };
+    const keys = { w: false, a: false, s: false, d: false };
+
+    const slots = [document.getElementById('slot1'), document.getElementById('slot2'), document.getElementById('slot3')];
+    const dialogBox = document.getElementById('dialogBox');
+    const dialogTitle = document.getElementById('dialogTitle');
+    const dialogText = document.getElementById('dialogText');
+    const dialogSub = document.getElementById('dialogSub');
+    const progressFill = document.getElementById('progressFill');
+    const hintCount = document.getElementById('hintCount');
+    const statusIcon = document.getElementById('statusIcon');
+    const levelBadge = document.getElementById('levelBadge');
+    const levelCompleteEl = document.getElementById('levelComplete');
+    const levelCompleteText = document.getElementById('levelCompleteText');
+    const nextLevelBtn = document.getElementById('nextLevelBtn');
+    const bossLegend = document.getElementById('bossLegend');
+    const gameOverOverlay = document.getElementById('gameOverOverlay');
+    const restartBtn = document.getElementById('restartBtn');
+    const congratsOverlay = document.getElementById('congratsOverlay');
+    const closeCongratsBtn = document.getElementById('closeCongratsBtn');
+    const restartFromCongratsBtn = document.getElementById('restartFromCongratsBtn');
+    const bgMusic = document.getElementById('bgMusic');
+    const video1 = document.getElementById('video1');
+    const video2 = document.getElementById('video2');
+    const video3 = document.getElementById('video3');
+    const videoOverlayClose = document.getElementById('videoOverlayClose');
+
+    const playBtn = document.getElementById('playBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const progressFillMusic = document.getElementById('progressFillMusic');
+    const progressHandle = document.getElementById('progressHandle');
+    const progressContainer = document.getElementById('progressContainer');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const trackName = document.getElementById('trackName');
+
+    let dialogTimer = null;
+    let audioCtx = null;
+    let finalAnimRunning = false;
+    let musicPlaying = false;
+    let isDragging = false;
+
+    function initAudioContext() {
+        if (!audioCtx) {
+            try { audioCtx = new(window.AudioContext || window.webkitAudioContext)(); } catch (e) {}
+        }
+    }
+
+    function formatTime(seconds) {
+        if (!seconds || isNaN(seconds)) return '0:00';
+        const m = Math.floor(seconds / 60);
+        const s = Math.floor(seconds % 60);
+        return `${m}:${s.toString().padStart(2, '0')}`;
+    }
+
+    function updateMusicProgress() {
+        if (bgMusic && !isNaN(bgMusic.duration) && bgMusic.duration > 0) {
+            const percent = (bgMusic.currentTime / bgMusic.duration) * 100;
+            progressFillMusic.style.width = `${Math.min(100, percent)}%`;
+            progressHandle.style.left = `${Math.min(100, percent)}%`;
+            timeDisplay.textContent = `${formatTime(bgMusic.currentTime)} / ${formatTime(bgMusic.duration)}`;
+        }
+    }
+
+    function togglePlay() {
+        initAudioContext();
+        if (!bgMusic.src) {
+            bgMusic.src = MEDIA_PATHS.music;
+            bgMusic.load();
+        }
+        if (bgMusic.paused) {
+            bgMusic.play().catch(e => console.log('Play error:', e));
+            playBtn.textContent = '⏸';
+            musicPlaying = true;
+        } else {
+            bgMusic.pause();
+            playBtn.textContent = '▶';
+            musicPlaying = false;
+        }
+    }
+
+    function setupMusicPlayer() {
+        bgMusic.src = MEDIA_PATHS.music;
+        bgMusic.load();
+        trackName.textContent = `🎵 ${MEDIA_PATHS.music.split('/').pop()}`;
+
+        playBtn.addEventListener('click', togglePlay);
+        playBtn.addEventListener('touchstart', (e) => { e.preventDefault(); togglePlay(); });
+
+        bgMusic.addEventListener('timeupdate', updateMusicProgress);
+        bgMusic.addEventListener('loadedmetadata', () => {
+            timeDisplay.textContent = `0:00 / ${formatTime(bgMusic.duration)}`;
+            updateMusicProgress();
+        });
+        bgMusic.addEventListener('ended', () => {
+            playBtn.textContent = '▶';
+            musicPlaying = false;
+            bgMusic.currentTime = 0;
+            updateMusicProgress();
+        });
+
+        progressContainer.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            setProgress(e);
+        });
+        progressContainer.addEventListener('mousemove', (e) => {
+            if (isDragging) setProgress(e);
+        });
+        document.addEventListener('mouseup', () => { isDragging = false; });
+        
+        progressContainer.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            isDragging = true;
+            setProgressTouch(e);
+        }, { passive: false });
+        progressContainer.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (isDragging) setProgressTouch(e);
+        }, { passive: false });
+        document.addEventListener('touchend', () => { isDragging = false; });
+
+        function setProgress(e) {
+            const rect = progressContainer.getBoundingClientRect();
+            const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+            if (bgMusic && !isNaN(bgMusic.duration) && bgMusic.duration > 0) {
+                bgMusic.currentTime = x * bgMusic.duration;
+                updateMusicProgress();
+            }
+        }
+        function setProgressTouch(e) {
+            const touch = e.touches[0];
+            const rect = progressContainer.getBoundingClientRect();
+            const x = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
+            if (bgMusic && !isNaN(bgMusic.duration) && bgMusic.duration > 0) {
+                bgMusic.currentTime = x * bgMusic.duration;
+                updateMusicProgress();
+            }
+        }
+
+        volumeSlider.addEventListener('input', () => {
+            bgMusic.volume = parseFloat(volumeSlider.value);
+        });
+
+        prevBtn.addEventListener('click', () => {
+            bgMusic.currentTime = Math.max(0, bgMusic.currentTime - 10);
+        });
+        nextBtn.addEventListener('click', () => {
+            bgMusic.currentTime = Math.min(bgMusic.duration, bgMusic.currentTime + 10);
+        });
+    }
+
+    function setupVideos() {
+        const wrappers = document.querySelectorAll('.video-wrapper');
+        wrappers.forEach((wrapper) => {
+            const video = wrapper.querySelector('video');
+            const videoId = wrapper.dataset.video;
+            const path = MEDIA_PATHS[videoId];
+            if (path && video) {
+                video.src = path;
+                video.load();
+                video.play().catch(e => console.log(`${videoId} play error:`, e));
+            }
+            
+            wrapper.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isExpanded = wrapper.classList.contains('expanded');
+                document.querySelectorAll('.video-wrapper.expanded').forEach(el => {
+                    el.classList.remove('expanded');
+                });
+                videoOverlayClose.classList.remove('active');
+                if (!isExpanded) {
+                    wrapper.classList.add('expanded');
+                    videoOverlayClose.classList.add('active');
+                }
+            });
+        });
+
+        videoOverlayClose.addEventListener('click', () => {
+            document.querySelectorAll('.video-wrapper.expanded').forEach(el => {
+                el.classList.remove('expanded');
+            });
+            videoOverlayClose.classList.remove('active');
+        });
+    }
+
+    // ===== ИГРОВЫЕ ФУНКЦИИ =====
+    function playSound(type) {
+        try {
+            initAudioContext();
+            if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            gain.gain.value = 0.06;
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+        } catch (e) {}
+    }
+
+    function showDialog(text, title = '🎉 ИМЕНИННИК', duration = 2500, sub = '') {
+        if (dialogTimer) clearTimeout(dialogTimer);
+        dialogTitle.textContent = title;
+        dialogText.textContent = text;
+        dialogSub.textContent = sub || '';
+        dialogBox.classList.add('show');
+        if (duration > 0) {
+            dialogTimer = setTimeout(() => hideDialog(), duration);
+        }
+    }
+
+    function hideDialog() {
+        dialogBox.classList.remove('show');
+        if (dialogTimer) clearTimeout(dialogTimer);
+    }
+
+    function updateInventoryUI() {
+        slots.forEach((slot, i) => {
+            if (i < player.inventory.length) {
+                slot.textContent = player.inventory[i].icon;
+                slot.className = 'inv-slot has-item';
+            } else {
+                slot.innerHTML = `<span class="slot-number">${i + 1}</span>`;
+                slot.className = 'inv-slot';
+            }
+        });
+        document.getElementById('itemCount').textContent = `${player.inventory.length}/3`;
+        hintCount.textContent = player.inventory.length;
+        progressFill.style.width = `${(player.inventory.length / 3) * 100}%`;
+        if (player.inventory.length >= 3) {
+            hintCount.className = 'count full';
+            statusIcon.textContent = '🎉';
+        } else {
+            hintCount.className = 'count';
+            statusIcon.textContent = '🎈';
+        }
+    }
+
+    function addItem(item) {
+        if (player.inventory.length >= player.maxItems) {
+            showDialog('Инвентарь полон!', '⚠️', 1500);
+            return false;
+        }
+        if (player.inventory.some(i => i.id === item.id)) return false;
+        player.inventory.push({ id: item.id, name: item.name, icon: item.icon });
+        updateInventoryUI();
+        playSound('pickup');
+        if (player.inventory.length === 3) {
+            showDialog('🎉 Все подарки собраны! Иди к выходу!', '🎂', 3000);
+        } else {
+            showDialog(`Взял: ${item.icon} ${item.name} (${player.inventory.length}/3)`, '🎁', 1200);
+        }
+        return true;
+    }
+
+    function restartGame() {
+        gameOverOverlay.classList.remove('show');
+        congratsOverlay.classList.remove('show');
+        gameOver = false;
+        gameWin = false;
+        levelComplete = false;
+        finalAnimRunning = false;
+        document.getElementById('finalAnimation').classList.remove('show');
+        document.getElementById('winOverlay').style.display = 'none';
+        currentLevel = 0;
+        if (bgMusic) { bgMusic.pause(); bgMusic.currentTime = 0; playBtn.textContent = '▶'; musicPlaying = false; }
+        loadLevel(0);
+    }
+
+    function loadLevel(index) {
+        const level = LEVELS[index];
+        MAP = level.map.map(row => [...row]);
+        objects = level.objects.map(obj => ({ ...obj, taken: false, escapeTimer: 0, escapeCooldown: 0, escapesLeft: obj.maxEscapes || 1 }));
+        traps = [];
+        boss = null;
+        playerPos = level.playerStart;
+        exitPos = level.exit;
+
+        maxTraps = level.maxTraps || 6;
+        spawnInterval = level.spawnInterval || 180;
+        trapLife = level.trapLife || 300;
+        trapDamage = level.trapDamage || 15;
+        pickupRadius = level.pickupRadius || 0.8;
+        trapsPerSpawn = level.trapsPerSpawn || 1;
+        escapeDistance = level.escapeDistance || 0;
+        escapeCooldown = level.escapeCooldown || 9999;
+        hasBoss = level.hasBoss || false;
+
+        if (hasBoss) {
+            bossLegend.style.display = 'inline';
+            const cx = Math.floor(GRID_SIZE/2);
+            const cy = Math.floor(GRID_SIZE/2);
+            boss = {
+                x: cx, y: cy,
+                displayX: cx, displayY: cy,
+                dir: 0,
+                speed: 3.5,
+                radius: 0.5,
+                state: 'chase',
+                hitCooldown: 0,
+                moveTimer: 0
+            };
+            showDialog('🐍 Грустная тёмная змея появилась! Убегай!', '⚠️ БОСС', 3000);
+        } else {
+            bossLegend.style.display = 'none';
+        }
+
+        player.x = playerPos.x;
+        player.y = playerPos.y;
+        player.displayX = playerPos.x;
+        player.displayY = playerPos.y;
+        player.inventory = [];
+        player.health = player.maxHealth;
+        levelComplete = false;
+        gameOver = false;
+        gameWin = false;
+        trapSpawnTimer = 0;
+        isMoving = false;
+        moveProgress = 0;
+
+        timeLeft = level.time || 300;
+        if (timerInterval) clearInterval(timerInterval);
+        startTimer();
+
+        levelBadge.textContent = `Уровень ${index + 1}`;
+        levelCompleteEl.classList.remove('show');
+        updateInventoryUI();
+        updateHealthUI();
+        hideDialog();
+
+        showDialog(`🎈 ${level.name} — найди 3 подарка!`, '🎂', 3000);
+    }
+
+    function spawnTraps(count) {
+        if (gameOver || gameWin || levelComplete) return;
+        for (let i = 0; i < count; i++) {
+            if (traps.filter(t => t.active).length >= maxTraps) break;
+            const usedCells = [
+                { x: player.x, y: player.y },
+                ...objects.filter(o => !o.taken).map(o => ({ x: o.x, y: o.y })),
+                { x: exitPos.x, y: exitPos.y }
+            ];
+            if (boss) usedCells.push({ x: boss.x, y: boss.y });
+            const freeCells = findFreeCells(MAP, 1, usedCells);
+            if (freeCells.length > 0) {
+                const pos = freeCells[0];
+                traps.push({ x: pos.x, y: pos.y, active: true, life: trapLife });
+            }
+        }
+    }
+
+    function escapeItems() {
+        if (escapeDistance <= 0) return;
+        for (const obj of objects) {
+            if (obj.taken) continue;
+            if (obj.escapesLeft <= 0) continue;
+            if (obj.escapeCooldown > 0) {
+                obj.escapeCooldown--;
+                continue;
+            }
+            const dist = Math.sqrt((obj.x - player.x) ** 2 + (obj.y - player.y) ** 2);
+            if (dist < 5) {
+                const usedCells = [
+                    { x: player.x, y: player.y },
+                    ...objects.filter(o => !o.taken && o.id !== obj.id).map(o => ({ x: o.x, y: o.y })),
+                    { x: exitPos.x, y: exitPos.y }
+                ];
+                if (boss) usedCells.push({ x: boss.x, y: boss.y });
+                const freeCells = findFreeCells(MAP, 1, usedCells);
+                if (freeCells.length > 0) {
+                    const pos = freeCells[0];
+                    obj.x = pos.x;
+                    obj.y = pos.y;
+                    obj.escapesLeft--;
+                    obj.escapeCooldown = escapeCooldown;
+                    if (obj.escapesLeft > 0) {
+                        showDialog(`${obj.icon} убежал! (осталось ${obj.escapesLeft} побегов)`, '🏃', 800);
+                    } else {
+                        showDialog(`${obj.icon} больше не убегает!`, '🏁', 800);
+                    }
+                }
+            }
+        }
+    }
+
+    function updateBossMovement() {
+        if (!boss || gameOver || gameWin || levelComplete) return;
+        if (boss.hitCooldown > 0) { boss.hitCooldown--; return; }
+
+        boss.moveTimer++;
+        if (boss.moveTimer < Math.floor(60 / boss.speed)) return;
+        boss.moveTimer = 0;
+
+        const dx = player.x - boss.x;
+        const dy = player.y - boss.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        
+        if (dist > 0.5) {
+            let moveX = 0, moveY = 0;
+            if (Math.abs(dx) > Math.abs(dy)) {
+                moveX = Math.sign(dx);
+            } else {
+                moveY = Math.sign(dy);
+            }
+            
+            const newX = boss.x + moveX;
+            const newY = boss.y + moveY;
+            if (newX >= 0 && newX < GRID_SIZE && newY >= 0 && newY < GRID_SIZE && MAP[newY][newX] !== 0) {
+                if (newX !== player.x || newY !== player.y) {
+                    boss.x = newX;
+                    boss.y = newY;
+                }
+            }
+        }
+
+        const pDist = Math.sqrt((boss.x - player.x)**2 + (boss.y - player.y)**2);
+        if (pDist < 0.8) {
+            player.health -= 20;
+            boss.hitCooldown = 30;
+            playSound('boss_hit');
+            showDialog('🐍 Змея ударила! -20 здоровья', '💥', 1500);
+            updateHealthUI();
+            if (player.health <= 0) {
+                gameOver = true;
+                if (timerInterval) clearInterval(timerInterval);
+                showGameOver();
+            }
+        }
+
+        boss.displayX += (boss.x - boss.displayX) * 0.15;
+        boss.displayY += (boss.y - boss.displayY) * 0.15;
+    }
+
+    function showGameOver() {
+        gameOverOverlay.classList.add('show');
+    }
+
+    function nextLevel() {
+        if (currentLevel < LEVELS.length - 1) {
+            currentLevel++;
+            loadLevel(currentLevel);
+            playSound('levelup');
+        } else {
+            startFinalAnimation();
+        }
+    }
+
+    // ===== ФИНАЛЬНАЯ АНИМАЦИЯ =====
+    let finalCanvas, finalCtx;
+    let animFrame = 0;
+    let animPhase = 0;
+    let walkPos = 0;
+    let lightIntensity = 0;
+    let blowProgress = 0;
+    let candlesLit = true;
+    let finalAnimComplete = false;
+
+    function initFinalAnimation() {
+        finalCanvas = document.getElementById('finalCanvas');
+        finalCtx = finalCanvas.getContext('2d');
+        resizeFinalCanvas();
+        window.addEventListener('resize', resizeFinalCanvas);
+        animFrame = 0;
+        animPhase = 0;
+        walkPos = 0;
+        lightIntensity = 0;
+        blowProgress = 0;
+        candlesLit = true;
+        finalAnimComplete = false;
+        document.getElementById('skipFinalBtn').addEventListener('click', skipFinal);
+        playSound('win');
+        animateFinal();
+    }
+
+    function resizeFinalCanvas() {
+        if (!finalCanvas) return;
+        const rect = finalCanvas.parentElement.getBoundingClientRect();
+        finalCanvas.width = rect.width;
+        finalCanvas.height = rect.height;
+    }
+
+    function skipFinal() {
+        finalAnimRunning = false;
+        document.getElementById('finalAnimation').classList.remove('show');
+        showCongrats();
+    }
+
+    function showCongrats() {
+        try {
+            video1.src = MEDIA_PATHS.video1;
+            video2.src = MEDIA_PATHS.video2;
+            video3.src = MEDIA_PATHS.video3;
+            video1.load();
+            video2.load();
+            video3.load();
+            video1.play().catch(e => console.log('Video1 play error:', e));
+            video2.play().catch(e => console.log('Video2 play error:', e));
+            video3.play().catch(e => console.log('Video3 play error:', e));
+        } catch(e) { console.log('Video load error:', e); }
+        
+        congratsOverlay.classList.add('show');
+        setTimeout(() => {
+            if (bgMusic.src && !bgMusic.paused) {
+                // уже играет
+            } else {
+                bgMusic.src = MEDIA_PATHS.music;
+                bgMusic.load();
+                bgMusic.play().catch(e => console.log('Music play error:', e));
+                playBtn.textContent = '⏸';
+                musicPlaying = true;
+            }
+        }, 400);
+    }
+
+    function drawPixelCharacter(c, x, y, scale, tilt, frame) {
+        const s = scale * 18;
+        c.save();
+        c.translate(x, y);
+        c.rotate(tilt * 0.05);
+        
+        c.fillStyle = '#ff88cc';
+        c.fillRect(-s*0.4, -s*0.3, s*0.8, s*0.7);
+        c.fillRect(-s*0.3, -s*0.5, s*0.6, s*0.3);
+        
+        c.fillStyle = '#ff4466';
+        c.fillRect(-s*0.35, -s*0.7, s*0.7, s*0.25);
+        c.fillRect(-s*0.25, -s*0.95, s*0.5, s*0.3);
+        c.fillRect(-s*0.15, -s*1.15, s*0.3, s*0.25);
+        
+        c.fillStyle = '#ffcc44';
+        c.fillRect(-s*0.08, -s*1.2, s*0.16, s*0.16);
+        
+        c.fillStyle = 'white';
+        c.fillRect(-s*0.25, -s*0.4, s*0.15, s*0.15);
+        c.fillRect(s*0.1, -s*0.4, s*0.15, s*0.15);
+        c.fillStyle = '#1a0a3a';
+        c.fillRect(-s*0.2, -s*0.35, s*0.08, s*0.08);
+        c.fillRect(s*0.15, -s*0.35, s*0.08, s*0.08);
+        
+        c.fillStyle = '#ff88aa';
+        c.fillRect(-s*0.15, -s*0.15, s*0.3, s*0.05);
+        
+        const legOff = Math.sin(frame * 0.1) * s * 0.05;
+        c.fillStyle = '#885588';
+        c.fillRect(-s*0.25, s*0.35, s*0.15, s*0.2 + legOff);
+        c.fillRect(s*0.1, s*0.35, s*0.15, s*0.2 - legOff);
+        
+        c.restore();
+    }
+
+    function drawPixelCake(c, x, y, size, lit) {
+        const s = size;
+        c.fillStyle = '#8a4a3a';
+        c.fillRect(x - s*0.7, y - s*0.3, s*1.4, s*0.6);
+        c.fillStyle = '#aa6a4a';
+        c.fillRect(x - s*0.5, y - s*0.45, s*1.0, s*0.2);
+        
+        c.fillStyle = '#ffccaa';
+        for (let i = -3; i <= 3; i++) {
+            const xOff = i * s*0.12;
+            c.fillRect(x + xOff - s*0.06, y - s*0.5, s*0.12, s*0.08);
+        }
+        
+        if (lit) {
+            for (let i = -2; i <= 2; i++) {
+                const cx = x + i * s*0.12;
+                c.fillStyle = '#ffdd88';
+                c.fillRect(cx - 1, y - s*0.55 - i*2, 2, s*0.12);
+                const flicker = 0.8 + Math.random() * 0.4;
+                c.fillStyle = `rgba(255, 200, 50, 0.9)`;
+                const fw = 3 * flicker;
+                const fh = 5 * flicker;
+                c.fillRect(cx - fw/2, y - s*0.6 - i*2 - fh, fw, fh);
+                c.fillStyle = `rgba(255, 150, 50, 0.7)`;
+                c.fillRect(cx - fw/4, y - s*0.6 - i*2 - fh*1.2, fw/2, fh*0.6);
+            }
+        }
+    }
+
+    function animateFinal() {
+        if (!finalAnimRunning) return;
+        const c = finalCtx;
+        const w = finalCanvas.width;
+        const h = finalCanvas.height;
+        c.clearRect(0, 0, w, h);
+
+        c.fillStyle = '#0a050a';
+        c.fillRect(0, 0, w, h);
+        
+        const floorY = h * 0.7;
+        c.fillStyle = '#1a0a1a';
+        c.fillRect(0, floorY, w, h - floorY);
+        
+        for (let i = 0; i < 20; i++) {
+            const x = w/2 + (i - 10) * 15;
+            const alpha = 0.1 + Math.abs(i - 10) / 10 * 0.15;
+            c.fillStyle = `rgba(60,30,60,${alpha})`;
+            c.fillRect(x, floorY, 2, h - floorY);
+        }
+
+        c.fillStyle = '#150a15';
+        for (let i = 0; i < 8; i++) {
+            const yOff = i * 30;
+            c.fillRect(0, 10 + yOff, 20, 20);
+            c.fillRect(w - 20, 10 + yOff, 20, 20);
+            c.fillRect(15 + i * 25, 5, 15, 15);
+        }
+
+        const tableX = w * 0.8;
+        const tableY = h * 0.5;
+        const tableW = w * 0.14;
+        const tableH = h * 0.18;
+        
+        c.fillStyle = '#3a1a3a';
+        c.fillRect(tableX + 4, tableY + tableH, 4, h - tableY - tableH);
+        c.fillRect(tableX + tableW - 8, tableY + tableH, 4, h - tableY - tableH);
+        
+        c.fillStyle = '#4a2a3a';
+        c.fillRect(tableX, tableY, tableW, tableH);
+        c.fillStyle = '#5a3a4a';
+        c.fillRect(tableX + 2, tableY - 3, tableW - 4, 4);
+
+        const cakeX = tableX + tableW/2;
+        const cakeY = tableY - 5;
+        const cakeSize = tableW * 0.45;
+
+        if (animPhase >= 2) {
+            lightIntensity = Math.min(1, lightIntensity + 0.015);
+            const glowSize = cakeSize * 3;
+            for (let i = 0; i < 20; i++) {
+                const alpha = 0.02 * lightIntensity * (1 - i/20);
+                c.fillStyle = `rgba(255, 200, 100, ${alpha})`;
+                const sz = glowSize * (1 - i/20);
+                c.fillRect(cakeX - sz/2, cakeY - sz/2, sz, sz);
+            }
+        }
+
+        drawPixelCake(c, cakeX, cakeY, cakeSize, candlesLit && animPhase < 3);
+
+        const charX = w * 0.08 + walkPos * w * 0.62;
+        const charY = h * 0.58;
+
+        if (animPhase < 2) {
+            walkPos += 0.006;
+            if (walkPos > 1) {
+                walkPos = 1;
+                animPhase = 1;
+                setTimeout(() => { 
+                    animPhase = 2; 
+                    try {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+                        osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.2);
+                        gain.gain.value = 0.04;
+                        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.3);
+                    } catch(e) {}
+                }, 500);
+            }
+        }
+
+        if (animPhase >= 1) {
+            const cx = w * 0.7;
+            const cy = h * 0.58;
+            
+            if (animPhase === 2) {
+                if (lightIntensity > 0.5 && !window._blowStarted) {
+                    window._blowStarted = true;
+                    setTimeout(() => { 
+                        animPhase = 3; 
+                        blowProgress = 0;
+                        try {
+                            const osc = audioCtx.createOscillator();
+                            const gain = audioCtx.createGain();
+                            osc.type = 'sawtooth';
+                            osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                            osc.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 0.6);
+                            gain.gain.value = 0.06;
+                            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+                            osc.connect(gain);
+                            gain.connect(audioCtx.destination);
+                            osc.start();
+                            osc.stop(audioCtx.currentTime + 0.6);
+                        } catch(e) {}
+                    }, 2000);
+                }
+            }
+            
+            if (animPhase === 3) {
+                blowProgress += 0.008;
+                const tilt = Math.sin(blowProgress * 15) * 0.08;
+                drawPixelCharacter(c, cx, cy, 1.2 + tilt * 0.5, tilt * 2, animFrame);
+                
+                if (blowProgress > 0.3) {
+                    candlesLit = false;
+                    for (let i = 0; i < 5; i++) {
+                        const xOff = (Math.random() - 0.5) * 35;
+                        const yOff = -25 - Math.random() * 30;
+                        const sz = 2 + Math.random() * 4;
+                        c.fillStyle = `rgba(255, 200, 100, ${Math.random() * 0.5})`;
+                        c.fillRect(cakeX + xOff - sz/2, cakeY + yOff - sz/2, sz, sz);
+                    }
+                }
+                
+                if (blowProgress > 2 && !finalAnimComplete) {
+                    finalAnimComplete = true;
+                    setTimeout(() => {
+                        finalAnimRunning = false;
+                        document.getElementById('finalAnimation').classList.remove('show');
+                        showCongrats();
+                    }, 800);
+                }
+            } else {
+                drawPixelCharacter(c, cx, cy, 1.2, 0, animFrame);
+            }
+        } else {
+            drawPixelCharacter(c, charX, charY, 1.0, 0, animFrame);
+        }
+
+        c.font = '12px monospace';
+        c.textAlign = 'center';
+        c.textBaseline = 'top';
+        if (animPhase === 0) {
+            c.fillStyle = 'rgba(200,180,220,0.4)';
+            c.fillText('🏃 ИДЁМ К СТОЛУ...', w/2, 15);
+        } else if (animPhase === 1) {
+            c.fillStyle = 'rgba(200,180,220,0.5)';
+            c.fillText('🎂 ТОРТ ЖДЁТ!', w/2, 15);
+        } else if (animPhase === 2) {
+            c.fillStyle = `rgba(255,200,100,${0.3 + lightIntensity * 0.5})`;
+            c.fillText('✨ ЗАДУЙ СВЕЧИ!', w/2, 15);
+        } else if (animPhase === 3) {
+            c.fillStyle = 'rgba(255,200,100,0.5)';
+            c.fillText('💨 ЗАДУВАЮ...', w/2, 15);
+            if (blowProgress > 1.2) {
+                c.fillStyle = 'rgba(255,200,100,0.8)';
+                c.font = '16px monospace';
+                c.fillText('🎉 С ДНЁМ РОЖДЕНИЯ!', w/2, 45);
+            }
+        }
+
+        animFrame++;
+        if (finalAnimRunning) {
+            requestAnimationFrame(animateFinal);
+        }
+    }
+
+    function startFinalAnimation() {
+        const animDiv = document.getElementById('finalAnimation');
+        animDiv.classList.add('show');
+        finalAnimRunning = true;
+        document.getElementById('winOverlay').style.display = 'none';
+        initFinalAnimation();
+    }
+
+    // ===== ИГРОВЫЕ МЕХАНИКИ =====
+    function tryMove(dx, dy) {
+        if (gameOver || gameWin || levelComplete) return;
+        if (isMoving) return;
+
+        const newX = player.x + dx;
+        const newY = player.y + dy;
+        if (newX < 0 || newX >= GRID_SIZE || newY < 0 || newY >= GRID_SIZE) return;
+        if (MAP[newY][newX] === 0) return;
+
+        for (const trap of traps) {
+            if (!trap.active) continue;
+            if (Math.abs(trap.x - newX) < pickupRadius && Math.abs(trap.y - newY) < pickupRadius) {
+                player.health -= trapDamage;
+                trap.active = false;
+                playSound('trap');
+                showDialog(`💥 Ловушка! -${trapDamage} здоровья`, '⚠️', 1500);
+                updateHealthUI();
+                if (player.health <= 0) {
+                    gameOver = true;
+                    if (timerInterval) clearInterval(timerInterval);
+                    showGameOver();
+                }
+                return;
+            }
+        }
+
+        isMoving = true;
+        moveProgress = 0;
+        moveTargetX = newX;
+        moveTargetY = newY;
+        
+        if (dx > 0) player.dir = 3;
+        else if (dx < 0) player.dir = 1;
+        else if (dy > 0) player.dir = 0;
+        else if (dy < 0) player.dir = 2;
+        
+        playSound('step');
+    }
+
+    function completeMove() {
+        player.x = moveTargetX;
+        player.y = moveTargetY;
+        player.displayX = moveTargetX;
+        player.displayY = moveTargetY;
+        isMoving = false;
+        moveProgress = 0;
+
+        for (const obj of objects) {
+            if (obj.taken) continue;
+            const dist = Math.sqrt((obj.x - player.x) ** 2 + (obj.y - player.y) ** 2);
+            if (dist < pickupRadius) {
+                if (addItem(obj)) {
+                    obj.taken = true;
+                }
+                break;
+            }
+        }
+
+        if (player.x === exitPos.x && player.y === exitPos.y) {
+            if (player.inventory.length >= 3) {
+                levelComplete = true;
+                if (timerInterval) clearInterval(timerInterval);
+                playSound('levelup');
+                if (currentLevel < LEVELS.length - 1) {
+                    levelCompleteText.textContent = `Ты собрал все подарки на уровне ${currentLevel + 1}!`;
+                    levelCompleteEl.classList.add('show');
+                } else {
+                    startFinalAnimation();
+                }
+            } else {
+                showDialog(`Нужно собрать все 3 подарка! (${player.inventory.length}/3)`, '🚪', 2000);
+            }
+        }
+    }
+
+    function exitGame() {
+        if (gameOver || gameWin || levelComplete) return;
+        if (player.x === exitPos.x && player.y === exitPos.y) {
+            if (player.inventory.length >= 3) {
+                levelComplete = true;
+                if (timerInterval) clearInterval(timerInterval);
+                playSound('levelup');
+                if (currentLevel < LEVELS.length - 1) {
+                    levelCompleteText.textContent = `Ты собрал все подарки на уровне ${currentLevel + 1}!`;
+                    levelCompleteEl.classList.add('show');
+                } else {
+                    startFinalAnimation();
+                }
+            } else {
+                showDialog(`Нужно собрать все 3 подарка! (${player.inventory.length}/3)`, '🚪', 2000);
+            }
+        } else {
+            showDialog('Подойди к выходу! 🚪', '🧭', 1500);
+        }
+    }
+
+    function updateHealthUI() {
+        document.getElementById('healthFill').style.width = `${Math.max(0, (player.health / player.maxHealth) * 100)}%`;
+        if (player.health < 30) {
+            document.getElementById('healthFill').style.background = 'linear-gradient(90deg, #ff6b8a, #ff4466)';
+        } else {
+            document.getElementById('healthFill').style.background = 'linear-gradient(90deg, #ff6b8a, #ffb0d0)';
+        }
+    }
+
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            const m = Math.floor(timeLeft / 60);
+            const s = timeLeft % 60;
+            document.getElementById('timerDisplay').textContent = `${m}:${s.toString().padStart(2, '0')}`;
+            if (timeLeft < 30) {
+                document.getElementById('timerDisplay').style.color = '#ff6b8a';
+            }
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                gameOver = true;
+                showDialog('⏰ Время вышло!', '💀', 3000);
+                setTimeout(showGameOver, 3000);
+            }
+        }, 1000);
+    }
+
+    function launchCelebration() {
+        const emojis = ['🎉', '🎊', '✨', '🌟', '🎂', '🧁', '🎈', '🎁', '🌸', '💫', '🌈', '⭐'];
+        for (let i = 0; i < 80; i++) {
+            setTimeout(() => {
+                const el = document.createElement('div');
+                el.className = 'celebration-particle';
+                el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.fontSize = (20 + Math.random() * 40) + 'px';
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 4000);
+            }, i * 40);
+        }
+    }
+
+    // ===== ОТРИСОВКА =====
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        const level = LEVELS[currentLevel];
+        ctx.fillStyle = level.bgColor || '#1a0a1a';
+        ctx.fillRect(0, 0, W, H);
+
+        const cellSize = Math.min(W / GRID_SIZE, H / GRID_SIZE);
+        const offsetX = (W - cellSize * GRID_SIZE) / 2;
+        const offsetY = (H - cellSize * GRID_SIZE) / 2;
+
+        for (let row = 0; row < GRID_SIZE; row++) {
+            for (let col = 0; col < GRID_SIZE; col++) {
+                const x = offsetX + col * cellSize;
+                const y = offsetY + row * cellSize;
+                const shade = ((row + col) % 2 === 0) ? 'rgba(255,200,240,0.03)' : 'rgba(255,200,240,0.06)';
+                ctx.fillStyle = shade;
+                ctx.fillRect(x, y, cellSize, cellSize);
+                if (MAP[row][col] === 3) {
+                    const pulse = 0.5 + Math.sin(frameCount / 20) * 0.2;
+                    ctx.fillStyle = `rgba(255, 200, 100, ${0.05 * pulse})`;
+                    ctx.fillRect(x, y, cellSize, cellSize);
+                    ctx.font = `${cellSize * 0.5}px sans-serif`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillStyle = `rgba(255, 200, 100, ${0.3 * pulse})`;
+                    ctx.fillText('🚪', x + cellSize / 2, y + cellSize / 2);
+                }
+            }
+        }
+
+        for (const trap of traps) {
+            if (!trap.active) continue;
+            const x = offsetX + trap.x * cellSize;
+            const y = offsetY + trap.y * cellSize;
+            const radiusPx = pickupRadius * cellSize;
+            const grad = ctx.createRadialGradient(x + cellSize/2, y + cellSize/2, 0, x + cellSize/2, y + cellSize/2, radiusPx);
+            grad.addColorStop(0, 'rgba(255, 50, 100, 0.15)');
+            grad.addColorStop(1, 'rgba(255, 50, 100, 0)');
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(x + cellSize/2, y + cellSize/2, radiusPx, 0, Math.PI * 2);
+            ctx.fill();
+            const pulse = 0.5 + Math.sin(frameCount / 15 + trap.x) * 0.3;
+            ctx.font = `${cellSize * 0.4}px sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = `rgba(255, 80, 120, ${0.4 * pulse})`;
+            ctx.fillText('⚠️', x + cellSize / 2, y + cellSize / 2);
+        }
+
+        for (const obj of objects) {
+            if (obj.taken) continue;
+            const x = offsetX + obj.x * cellSize;
+            const y = offsetY + obj.y * cellSize;
+            const radiusPx = pickupRadius * cellSize;
+            const grad = ctx.createRadialGradient(x + cellSize/2, y + cellSize/2, 0, x + cellSize/2, y + cellSize/2, radiusPx);
+            grad.addColorStop(0, 'rgba(255, 200, 100, 0.1)');
+            grad.addColorStop(1, 'rgba(255, 200, 100, 0)');
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(x + cellSize/2, y + cellSize/2, radiusPx, 0, Math.PI * 2);
+            ctx.fill();
+            const pulse = 0.5 + Math.sin(frameCount / 30 + obj.x) * 0.3;
+            const floatY = Math.sin(frameCount / 40 + obj.x) * 3;
+            ctx.font = `${cellSize * 0.6}px sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(obj.icon, x + cellSize / 2, y + cellSize / 2 + floatY);
+            if (obj.escapesLeft > 0 && obj.escapesLeft < 10) {
+                ctx.font = `${cellSize * 0.2}px sans-serif`;
+                ctx.fillStyle = 'rgba(255,200,100,0.5)';
+                ctx.fillText(`×${obj.escapesLeft}`, x + cellSize * 0.8, y + cellSize * 0.2);
+            }
+        }
+
+        if (boss && hasBoss) {
+            const bx = offsetX + boss.displayX * cellSize + cellSize / 2;
+            const by = offsetY + boss.displayY * cellSize + cellSize / 2;
+            const bRadius = cellSize * 0.45;
+            
+            const aura = ctx.createRadialGradient(bx, by, 0, bx, by, bRadius * 2);
+            aura.addColorStop(0, 'rgba(80, 0, 80, 0.3)');
+            aura.addColorStop(1, 'rgba(80, 0, 80, 0)');
+            ctx.fillStyle = aura;
+            ctx.beginPath();
+            ctx.arc(bx, by, bRadius * 2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.shadowColor = 'rgba(100, 0, 100, 0.5)';
+            ctx.shadowBlur = 20;
+            
+            ctx.fillStyle = '#2a1a2a';
+            ctx.beginPath();
+            ctx.ellipse(bx, by, bRadius, bRadius * 0.7, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#3a2a3a';
+            ctx.beginPath();
+            ctx.ellipse(bx, by - bRadius * 0.3, bRadius * 0.6, bRadius * 0.5, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#ff4444';
+            ctx.beginPath();
+            ctx.ellipse(bx - bRadius * 0.25, by - bRadius * 0.4, bRadius * 0.15, bRadius * 0.2, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(bx + bRadius * 0.25, by - bRadius * 0.4, bRadius * 0.15, bRadius * 0.2, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#1a0a1a';
+            ctx.beginPath();
+            ctx.ellipse(bx - bRadius * 0.25, by - bRadius * 0.3, bRadius * 0.07, bRadius * 0.1, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(bx + bRadius * 0.25, by - bRadius * 0.3, bRadius * 0.07, bRadius * 0.1, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.strokeStyle = '#4a3a4a';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(bx, by - bRadius * 0.1, bRadius * 0.2, 0.1, Math.PI - 0.1);
+            ctx.stroke();
+            
+            ctx.fillStyle = 'rgba(100, 150, 255, 0.3)';
+            ctx.beginPath();
+            ctx.ellipse(bx - bRadius * 0.35, by - bRadius * 0.2, 2, 4, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.shadowBlur = 0;
+            
+            ctx.font = `${cellSize * 0.2}px sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+            ctx.fillStyle = 'rgba(200,100,200,0.3)';
+            ctx.fillText('🐍 БОСС', bx, by - bRadius - 5);
+        }
+
+        const px = offsetX + player.displayX * cellSize + cellSize / 2;
+        const py = offsetY + player.displayY * cellSize + cellSize / 2;
+        const radius = cellSize * 0.32;
+
+        ctx.shadowColor = 'rgba(255, 150, 220, 0.15)';
+        ctx.shadowBlur = 25;
+
+        ctx.beginPath();
+        ctx.arc(px, py, radius, 0, Math.PI * 2);
+        const grad = ctx.createRadialGradient(px - radius * 0.3, py - radius * 0.3, 0, px, py, radius);
+        grad.addColorStop(0, '#ff88cc');
+        grad.addColorStop(1, '#aa4aaa');
+        ctx.fillStyle = grad;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        const hatSize = radius * 0.9;
+        const hatX = px;
+        const hatY = py - radius * 0.7;
+        ctx.beginPath();
+        ctx.moveTo(hatX - hatSize * 0.6, hatY + radius * 0.3);
+        ctx.quadraticCurveTo(hatX - hatSize * 0.8, hatY - radius * 0.2, hatX, hatY - hatSize * 1.0);
+        ctx.quadraticCurveTo(hatX + hatSize * 0.8, hatY - radius * 0.2, hatX + hatSize * 0.6, hatY + radius * 0.3);
+        ctx.closePath();
+        ctx.fillStyle = '#ff4466';
+        ctx.fill();
+        ctx.strokeStyle = '#ff88aa';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(hatX, hatY - hatSize * 1.0 + 3, 6, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffcc44';
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        const dirs = [{ dx: 0, dy: 1 }, { dx: -1, dy: 0 }, { dx: 0, dy: -1 }, { dx: 1, dy: 0 }];
+        const d = dirs[player.dir] || dirs[0];
+        const eyeOff = radius * 0.4;
+        const eyeSize = radius * 0.18;
+
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(px + d.dx * eyeOff - d.dy * eyeOff * 0.4, py + d.dy * eyeOff + d.dx * eyeOff * 0.4, eyeSize, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(px + d.dx * eyeOff + d.dy * eyeOff * 0.4, py + d.dy * eyeOff - d.dx * eyeOff * 0.4, eyeSize, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#1a0a3a';
+        const pupil = eyeSize * 0.5;
+        ctx.beginPath();
+        ctx.arc(px + d.dx * eyeOff - d.dy * eyeOff * 0.4 + d.dx * pupil * 0.5,
+            py + d.dy * eyeOff + d.dx * eyeOff * 0.4 + d.dy * pupil * 0.5,
+            pupil, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(px + d.dx * eyeOff + d.dy * eyeOff * 0.4 + d.dx * pupil * 0.5,
+            py + d.dy * eyeOff - d.dx * eyeOff * 0.4 + d.dy * pupil * 0.5,
+            pupil, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(px + d.dx * 3, py + d.dy * 6 + 4, 6, 0, Math.PI);
+        ctx.strokeStyle = '#ff88aa';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        drawMiniMap(offsetX, offsetY, cellSize);
+        frameCount++;
+    }
+
+    function drawMiniMap(offsetX, offsetY, cellSize) {
+        const size = 70;
+        const x = 10;
+        const y = 10;
+        const scale = size / GRID_SIZE;
+
+        ctx.globalAlpha = 0.4;
+        ctx.fillStyle = 'rgba(20, 5, 20, 0.8)';
+        ctx.beginPath();
+        ctx.roundRect(x - 4, y - 4, GRID_SIZE * scale + 8, GRID_SIZE * scale + 8, 6);
+        ctx.fill();
+
+        ctx.globalAlpha = 0.5;
+        for (let row = 0; row < GRID_SIZE; row++) {
+            for (let col = 0; col < GRID_SIZE; col++) {
+                const cx = x + col * scale;
+                const cy = y + row * scale;
+                ctx.fillStyle = '#1a0a1a';
+                ctx.fillRect(cx, cy, scale, scale);
+                if (MAP[row][col] === 3) {
+                    ctx.fillStyle = 'rgba(255, 200, 100, 0.2)';
+                    ctx.fillRect(cx, cy, scale, scale);
+                }
+            }
+        }
+
+        for (const trap of traps) {
+            if (!trap.active) continue;
+            ctx.fillStyle = 'rgba(255, 50, 100, 0.4)';
+            ctx.beginPath();
+            ctx.arc(x + trap.x * scale + scale/2, y + trap.y * scale + scale/2, 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        ctx.globalAlpha = 0.8;
+        for (const obj of objects) {
+            if (obj.taken) continue;
+            ctx.fillStyle = '#ffcc88';
+            ctx.beginPath();
+            ctx.arc(x + obj.x * scale + scale/2, y + obj.y * scale + scale/2, 2.5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        if (boss && hasBoss) {
+            ctx.fillStyle = 'rgba(150, 50, 150, 0.6)';
+            ctx.beginPath();
+            ctx.arc(x + boss.displayX * scale + scale/2, y + boss.displayY * scale + scale/2, 4, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = '#ff88cc';
+        ctx.shadowColor = 'rgba(255, 150, 220, 0.3)';
+        ctx.shadowBlur = 8;
+        ctx.beginPath();
+        ctx.arc(x + player.displayX * scale + scale/2, y + player.displayY * scale + scale/2, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.globalAlpha = 1;
+    }
+
+    // ===== УПРАВЛЕНИЕ =====
+    function setupJoystick() {
+        const area = document.getElementById('joystickArea');
+        const base = joystickBase;
+        const thumb = joystickThumb;
+        const maxDist = 35;
+
+        function getPos(e) {
+            const rect = base.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            let clientX, clientY;
+            if (e.touches) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            let dx = clientX - cx;
+            let dy = clientY - cy;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist > maxDist) {
+                dx = dx / dist * maxDist;
+                dy = dy / dist * maxDist;
+            }
+            return { dx, dy, dist: Math.min(dist, maxDist) };
+        }
+
+        function handleStart(e) {
+            e.preventDefault();
+            initAudioContext();
+            const pos = getPos(e);
+            joystickActive = true;
+            if (e.touches) {
+                joystickTouchId = e.touches[0].identifier;
+            }
+            updateJoystick(pos);
+        }
+
+        function handleMove(e) {
+            e.preventDefault();
+            if (!joystickActive) return;
+            let pos;
+            if (e.touches) {
+                for (const touch of e.touches) {
+                    if (touch.identifier === joystickTouchId || joystickTouchId === null) {
+                        pos = getPos({ touches: [touch] });
+                        break;
+                    }
+                }
+                if (!pos) return;
+            } else {
+                pos = getPos(e);
+            }
+            updateJoystick(pos);
+        }
+
+        function handleEnd(e) {
+            e.preventDefault();
+            joystickActive = false;
+            joystickTouchId = null;
+            thumb.style.transform = 'translate(-50%, -50%)';
+            joystickDir = { x: 0, y: 0 };
+        }
+
+        function updateJoystick(pos) {
+            const dx = pos.dx;
+            const dy = pos.dy;
+            const dist = pos.dist;
+            const maxDist = 35;
+            thumb.style.transform = `translate(${-50 + (dx / maxDist) * 50}%, ${-50 + (dy / maxDist) * 50}%)`;
+            const deadZone = 5;
+            if (dist < deadZone) {
+                joystickDir = { x: 0, y: 0 };
+                return;
+            }
+            const norm = Math.min(dist / maxDist, 1);
+            const angle = Math.atan2(dy, dx);
+            let x = Math.cos(angle) * norm;
+            let y = Math.sin(angle) * norm;
+            if (Math.abs(x) > Math.abs(y)) {
+                y = 0;
+                x = Math.sign(x);
+            } else {
+                x = 0;
+                y = Math.sign(y);
+            }
+            joystickDir = { x, y };
+        }
+
+        area.addEventListener('touchstart', handleStart, { passive: false });
+        document.addEventListener('touchmove', handleMove, { passive: false });
+        document.addEventListener('touchend', handleEnd, { passive: false });
+        document.addEventListener('touchcancel', handleEnd, { passive: false });
+        area.addEventListener('mousedown', handleStart);
+        document.addEventListener('mousemove', (e) => {
+            if (!joystickActive) return;
+            handleMove(e);
+        });
+        document.addEventListener('mouseup', handleEnd);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        const key = e.key.toLowerCase();
+        if (key === 'w' || key === 'arrowup') { keys.w = true;
+            e.preventDefault(); }
+        if (key === 's' || key === 'arrowdown') { keys.s = true;
+            e.preventDefault(); }
+        if (key === 'a' || key === 'arrowleft') { keys.a = true;
+            e.preventDefault(); }
+        if (key === 'd' || key === 'arrowright') { keys.d = true;
+            e.preventDefault(); }
+        if (key === 'e' || key === ' ') {
+            e.preventDefault();
+            if (!gameOver && !gameWin) exitGame();
+        }
+        if (key === 'enter') {
+            e.preventDefault();
+            if (levelComplete) nextLevel();
+        }
+    });
+
+    document.addEventListener('keyup', (e) => {
+        const key = e.key.toLowerCase();
+        if (key === 'w' || key === 'arrowup') { keys.w = false;
+            e.preventDefault(); }
+        if (key === 's' || key === 'arrowdown') { keys.s = false;
+            e.preventDefault(); }
+        if (key === 'a' || key === 'arrowleft') { keys.a = false;
+            e.preventDefault(); }
+        if (key === 'd' || key === 'arrowright') { keys.d = false;
+            e.preventDefault(); }
+    });
+
+    document.getElementById('actionBtn').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        initAudioContext();
+        if (!gameOver && !gameWin) exitGame();
+    });
+    document.getElementById('actionBtn').addEventListener('mousedown', () => {
+        initAudioContext();
+        if (!gameOver && !gameWin) exitGame();
+    });
+    nextLevelBtn.addEventListener('click', nextLevel);
+    nextLevelBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        nextLevel();
+    });
+    restartBtn.addEventListener('click', restartGame);
+    restartBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        restartGame();
+    });
+    closeCongratsBtn.addEventListener('click', () => {
+        congratsOverlay.classList.remove('show');
+        if (bgMusic) { bgMusic.pause(); playBtn.textContent = '▶'; musicPlaying = false; }
+        document.getElementById('winOverlay').style.display = 'flex';
+        const totalTime = 900 - timeLeft;
+        const m = Math.floor(totalTime / 60);
+        const s = totalTime % 60;
+        document.getElementById('finalTime').textContent = `${m}:${s.toString().padStart(2, '0')}`;
+        launchCelebration();
+    });
+    restartFromCongratsBtn.addEventListener('click', () => {
+        congratsOverlay.classList.remove('show');
+        if (bgMusic) { bgMusic.pause(); playBtn.textContent = '▶'; musicPlaying = false; }
+        restartGame();
+    });
+
+    if (!CanvasRenderingContext2D.prototype.roundRect) {
+        CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+            if (r > w / 2) r = w / 2;
+            if (r > h / 2) r = h / 2;
+            this.moveTo(x + r, y);
+            this.arcTo(x + w, y, x + w, y + h, r);
+            this.arcTo(x + w, y + h, x, y + h, r);
+            this.arcTo(x, y + h, x, y, r);
+            this.arcTo(x, y, x + w, y, r);
+            this.closePath();
+            return this;
+        };
+    }
+
+    // ===== ГЛАВНЫЙ ЦИКЛ =====
+    function gameLoop() {
+        if (!gameOver && !gameWin && !levelComplete && !finalAnimRunning) {
+            if (isMoving) {
+                moveProgress += 0.12;
+                if (moveProgress >= 1) {
+                    moveProgress = 1;
+                    player.displayX = moveTargetX;
+                    player.displayY = moveTargetY;
+                    completeMove();
+                } else {
+                    const ease = moveProgress * moveProgress * (3 - 2 * moveProgress);
+                    player.displayX = player.x + (moveTargetX - player.x) * ease;
+                    player.displayY = player.y + (moveTargetY - player.y) * ease;
+                }
+            }
+
+            trapSpawnTimer++;
+            if (trapSpawnTimer >= spawnInterval) {
+                trapSpawnTimer = 0;
+                spawnTraps(trapsPerSpawn);
+            }
+
+            traps = traps.filter(t => t.life > 0);
+            for (const trap of traps) {
+                trap.life--;
+                if (trap.life <= 0) trap.active = false;
+            }
+            traps = traps.filter(t => t.active || t.life > 0);
+
+            if (escapeDistance > 0 && frameCount % 30 === 0) {
+                escapeItems();
+            }
+
+            if (hasBoss && boss) {
+                updateBossMovement();
+            }
+
+            let dx = 0, dy = 0;
+            if (joystickActive) {
+                dx = joystickDir.x;
+                dy = joystickDir.y;
+            }
+            if (keys.w) dy = -1;
+            if (keys.s) dy = 1;
+            if (keys.a) dx = -1;
+            if (keys.d) dx = 1;
+
+            if (!isMoving && (dx !== 0 || dy !== 0)) {
+                tryMove(dx, dy);
+            }
+        }
+
+        if (!finalAnimRunning) {
+            draw();
+        }
+        requestAnimationFrame(gameLoop);
+    }
+
+    // ===== СТАРТ =====
+    function init() {
+        currentLevel = 0;
+        loadLevel(0);
+        setupJoystick();
+        setupMusicPlayer();
+        setupVideos();
+        gameLoop();
+        document.addEventListener('click', initAudioContext);
+        document.addEventListener('touchstart', initAudioContext);
+        console.log('🎂 МОБИЛЬНАЯ ВЕРСИЯ ГОТОВА!');
+        console.log('✅ Открытка прокручивается на телефоне');
+        console.log('✅ Видео увеличиваются по клику');
+        console.log('✅ Музыкальный плеер работает');
+    }
+
+    init();
+</script>
+</body>
+</html>            height: 100vh;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+        }
+
+        .game-wrapper {
+            width: 100%;
+            height: 100vh;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            background: #2a102a;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        /* ===== ОСТАЛЬНЫЕ СТИЛИ ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 12px;
+            background: rgba(40, 10, 40, 0.95);
+            border-bottom: 1px solid #6a2a6a;
+            flex-shrink: 0;
+            z-index: 10;
+            font-size: 11px;
+            min-height: 44px;
+        }
+        .header .title { color: #ffb0e0; font-weight: bold; font-size: 13px; text-shadow: 0 0 20px rgba(255, 100, 200, 0.3); }
+        .header .stats { display: flex; gap: 10px; font-size: 11px; align-items: center; }
+        .header .stats span { display: flex; align-items: center; gap: 3px; }
+        .health-bar { width: 50px; height: 5px; background: #3a1a3a; border-radius: 3px; overflow: hidden; display: inline-block; }
+        .health-bar .fill { height: 100%; background: linear-gradient(90deg, #ff6b8a, #ffb0d0); transition: width 0.3s; border-radius: 3px; }
+
+        .game-area {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background: #120a12;
+            touch-action: none;
+        }
+        #gameCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: #1a0a1a;
+            image-rendering: pixelated;
+        }
+
+        .joystick-area {
+            position: absolute;
             bottom: 20px;
             left: 20px;
             width: 130px;
